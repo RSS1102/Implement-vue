@@ -1,11 +1,11 @@
 /**
  * @desc proxy 代理实现双向绑定
  * @param target {Record<string, any>} 需要代理的对象
- * @param dom {HTMLElement | null }更新dom操作
+ * @param dom {Record<string, HTMLElement | null>}更新dom操作
  */
 export const proxy = (
   target: Record<string, any>,
-  dom: HTMLElement | null
+  dom: Record<string, HTMLElement | null>
 ): Record<string, any> => {
   // 创建proxy实例并返回
   return new Proxy(target, {
@@ -20,7 +20,7 @@ export const proxy = (
       newValue: any,
       receiver: any
     ) => {
-      dom!.innerHTML = newValue;
+      dom[key]!.innerHTML = newValue;
       target[key] = newValue;
       return true;
     },
