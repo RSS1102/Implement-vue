@@ -7,6 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>vue实现</title>
 </head>
+<style>
+  /* 标题 */
+  .title {
+    font-weight: bold;
+    margin: 15px;
+  }
+
+  /* 解释；说明 */
+  .explain {
+    font-size: 14px;
+    font-style: italic;
+    width: 400px;
+  }
+
+  /* 警告 */
+  .warning {
+    color: red;
+  }
+</style>
 
 <body>
   <!-- vue3-proxy -->
@@ -15,6 +34,22 @@
   <input id="proxyInput1" value="" oninput="onInput" />
   <div id="proxy2"></div>
   <input id="proxyInput2" value="" oninput="onInput" />
+
+  <!-- vue2-defineProperty -->
+  <div class="title">vvue2-defineProperty</div>
+  <div class="explain">
+    1.先在Input2内输入值,会发现Input1上方的值没有发生改变。
+    2.先在Input1内输入值,然后在Input2输入值你会发现InputValue1和InputValue2值都发生了改变。
+    <span class="warning">[尝试刷新页面]</span>
+    <br />
+    Reson: Input1输入监听调用了`ObserveDefineProperty`进行了数据的监听操作，
+    所以当激活了Input的`onInput`事件后，数据则处于监听状态。
+    Input2输入监听没有调用`ObserveDefineProperty`数据监听,所以Input1不会同步发生变化
+  </div>
+  <div>InputValue1 <span id="defineProperty1"></span></div>
+  <div>Input1: <input id="definePropertyInput1" value="" oninput="onInput" /></div>
+  <div>InputValue2 <span id="defineProperty2"></span> </div>
+  <div>Input2: <input id="definePropertyInput2" value="" oninput="onInput" /> </div>
 
   <div id="root"></div>
   <script type="module" src="/src/main.ts"></script>
